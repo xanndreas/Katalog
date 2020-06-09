@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Schedule;
+use App\Room;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateScheduleRequest extends FormRequest
+class UpdateRoomRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('schedule_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('room_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -19,13 +19,14 @@ class UpdateScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'teacher_id' => [
+            'name'        => [
                 'required',
-                'integer',
             ],
-            'tanggal'    => [
+            'description' => [
                 'required',
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+            ],
+            'gedung'      => [
+                'required',
             ],
         ];
     }

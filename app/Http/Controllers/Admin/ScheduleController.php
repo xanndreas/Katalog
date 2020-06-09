@@ -7,7 +7,7 @@ use App\Http\Requests\MassDestroyScheduleRequest;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Schedule;
-use App\Speaker;
+use App\Teacher;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,9 +27,9 @@ class ScheduleController extends Controller
     {
         abort_if(Gate::denies('schedule_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $speakers = Speaker::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $teachers = Teacher::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.schedules.create', compact('speakers'));
+        return view('admin.schedules.create', compact('teachers'));
     }
 
     public function store(StoreScheduleRequest $request)
@@ -43,11 +43,11 @@ class ScheduleController extends Controller
     {
         abort_if(Gate::denies('schedule_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $speakers = Speaker::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $teachers = Teacher::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $schedule->load('speaker');
+        $schedule->load('teacher');
 
-        return view('admin.schedules.edit', compact('speakers', 'schedule'));
+        return view('admin.schedules.edit', compact('teachers', 'schedule'));
     }
 
     public function update(UpdateScheduleRequest $request, Schedule $schedule)
@@ -61,7 +61,7 @@ class ScheduleController extends Controller
     {
         abort_if(Gate::denies('schedule_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $schedule->load('speaker');
+        $schedule->load('teacher');
 
         return view('admin.schedules.show', compact('schedule'));
     }

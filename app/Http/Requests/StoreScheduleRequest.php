@@ -19,18 +19,13 @@ class StoreScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'day_number' => [
+            'teacher_id' => [
                 'required',
                 'integer',
-                'min:-2147483648',
-                'max:2147483647',
             ],
-            'start_time' => [
+            'tanggal'    => [
                 'required',
-                'date_format:' . config('panel.time_format'),
-            ],
-            'title'      => [
-                'required',
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
         ];
     }

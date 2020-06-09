@@ -63,4 +63,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Prices
     Route::delete('prices/destroy', 'PricesController@massDestroy')->name('prices.massDestroy');
     Route::resource('prices', 'PricesController');
+
+    // Audit Logs
+    Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
+
+    // Teachers
+    Route::delete('teachers/destroy', 'TeacherController@massDestroy')->name('teachers.massDestroy');
+    Route::resource('teachers', 'TeacherController');
+
+    // Rooms
+    Route::delete('rooms/destroy', 'RoomController@massDestroy')->name('rooms.massDestroy');
+    Route::resource('rooms', 'RoomController');
+
+    // Schedules
+    Route::delete('schedules/destroy', 'ScheduleController@massDestroy')->name('schedules.massDestroy');
+    Route::resource('schedules', 'ScheduleController');
 });

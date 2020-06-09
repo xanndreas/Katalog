@@ -69,6 +69,16 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('audit_log_access')
+                            <li class="nav-item">
+                                <a href="{{ route("admin.audit-logs.index") }}" class="nav-link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'active' : '' }}">
+                                    <i class="fa-fw fas fa-file-alt nav-icon">
+
+                                    </i>
+                                    {{ trans('cruds.auditLog.title') }}
+                                </a>
+                            </li>
+                            @endcan
                         </ul>
                     </li>
                 @endcan
@@ -80,54 +90,6 @@
                             </i>
                             <p>
                                 <span>{{ trans('cruds.setting.title') }}</span>
-                            </p>
-                        </a>
-                    </li>
-                @endcan
-                @can('speaker_access')
-                    <li class="nav-item">
-                        <a href="{{ route("admin.speakers.index") }}" class="nav-link {{ request()->is('admin/speakers') || request()->is('admin/speakers/*') ? 'active' : '' }}">
-                            <i class="fa-fw fas fa-users">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('cruds.speaker.title') }}</span>
-                            </p>
-                        </a>
-                    </li>
-                @endcan
-                @can('schedule_access')
-                    <li class="nav-item">
-                        <a href="{{ route("admin.schedules.index") }}" class="nav-link {{ request()->is('admin/schedules') || request()->is('admin/schedules/*') ? 'active' : '' }}">
-                            <i class="fa-fw far fa-clock">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('cruds.schedule.title') }}</span>
-                            </p>
-                        </a>
-                    </li>
-                @endcan
-                @can('venue_access')
-                    <li class="nav-item">
-                        <a href="{{ route("admin.venues.index") }}" class="nav-link {{ request()->is('admin/venues') || request()->is('admin/venues/*') ? 'active' : '' }}">
-                            <i class="fa-fw fas fa-map-marker-alt">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('cruds.venue.title') }}</span>
-                            </p>
-                        </a>
-                    </li>
-                @endcan
-                @can('hotel_access')
-                    <li class="nav-item">
-                        <a href="{{ route("admin.hotels.index") }}" class="nav-link {{ request()->is('admin/hotels') || request()->is('admin/hotels/*') ? 'active' : '' }}">
-                            <i class="fa-fw fas fa-hotel">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('cruds.hotel.title') }}</span>
                             </p>
                         </a>
                     </li>
@@ -144,18 +106,6 @@
                         </a>
                     </li>
                 @endcan
-                @can('sponsor_access')
-                    <li class="nav-item">
-                        <a href="{{ route("admin.sponsors.index") }}" class="nav-link {{ request()->is('admin/sponsors') || request()->is('admin/sponsors/*') ? 'active' : '' }}">
-                            <i class="fa-fw fas fa-hand-holding-usd">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('cruds.sponsor.title') }}</span>
-                            </p>
-                        </a>
-                    </li>
-                @endcan
                 @can('faq_access')
                     <li class="nav-item">
                         <a href="{{ route("admin.faqs.index") }}" class="nav-link {{ request()->is('admin/faqs') || request()->is('admin/faqs/*') ? 'active' : '' }}">
@@ -168,26 +118,38 @@
                         </a>
                     </li>
                 @endcan
-                @can('amenity_access')
+                @can('teacher_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.teachers.index") }}" class="nav-link {{ request()->is('admin/teachers') || request()->is('admin/teachers/*') ? 'active' : '' }}">
+                        <i class="fa-fw fas fa-chalkboard-teacher nav-icon">
+
+                        </i>
+                        <p>
+                            <span>{{ trans('cruds.teacher.title') }}</span>
+                        </p>
+                    </a>
+                </li>
+                @endcan
+                @can('room_access')
                     <li class="nav-item">
-                        <a href="{{ route("admin.amenities.index") }}" class="nav-link {{ request()->is('admin/amenities') || request()->is('admin/amenities/*') ? 'active' : '' }}">
-                            <i class="fa-fw fas fa-check">
+                        <a href="{{ route("admin.rooms.index") }}" class="nav-link {{ request()->is('admin/rooms') || request()->is('admin/rooms/*') ? 'active' : '' }}">
+                            <i class="fa-fw fas fa-hospital nav-icon">
 
                             </i>
                             <p>
-                                <span>{{ trans('cruds.amenity.title') }}</span>
+                                <span>{{ trans('cruds.room.title') }}</span>
                             </p>
                         </a>
                     </li>
                 @endcan
-                @can('price_access')
+                @can('schedule_access')
                     <li class="nav-item">
-                        <a href="{{ route("admin.prices.index") }}" class="nav-link {{ request()->is('admin/prices') || request()->is('admin/prices/*') ? 'active' : '' }}">
-                            <i class="fa-fw fas fa-money-bill">
+                        <a href="{{ route("admin.schedules.index") }}" class="nav-link {{ request()->is('admin/schedules') || request()->is('admin/schedules/*') ? 'active' : '' }}">
+                            <i class="fa-fw fas fa-clock nav-icon">
 
                             </i>
                             <p>
-                                <span>{{ trans('cruds.price.title') }}</span>
+                                <span>{{ trans('cruds.schedule.title') }}</span>
                             </p>
                         </a>
                     </li>

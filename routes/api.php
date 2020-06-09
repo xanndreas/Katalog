@@ -44,4 +44,13 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Prices
     Route::apiResource('prices', 'PricesApiController');
+
+    // Teachers
+    Route::apiResource('teachers', 'TeacherApiController');
+
+    // Rooms
+    Route::apiResource('rooms', 'RoomApiController');
+
+    // Schedules
+    Route::apiResource('schedules', 'ScheduleApiController');
 });

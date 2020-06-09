@@ -7,73 +7,51 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.schedules.store") }}" method="POST" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("admin.schedules.store") }}" enctype="multipart/form-data">
             @csrf
-            <div class="form-group {{ $errors->has('day_number') ? 'has-error' : '' }}">
-                <label for="day_number">{{ trans('cruds.schedule.fields.day_number') }}*</label>
-                <input type="number" id="day_number" name="day_number" class="form-control" value="{{ old('day_number', isset($schedule) ? $schedule->day_number : '') }}" step="1" required>
-                @if($errors->has('day_number'))
-                    <p class="help-block">
-                        {{ $errors->first('day_number') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.schedule.fields.day_number_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('start_time') ? 'has-error' : '' }}">
-                <label for="start_time">{{ trans('cruds.schedule.fields.start_time') }}*</label>
-                <input type="text" id="start_time" name="start_time" class="form-control timepicker" value="{{ old('start_time', isset($schedule) ? $schedule->start_time : '') }}" required>
-                @if($errors->has('start_time'))
-                    <p class="help-block">
-                        {{ $errors->first('start_time') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.schedule.fields.start_time_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                <label for="title">{{ trans('cruds.schedule.fields.title') }}*</label>
-                <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($schedule) ? $schedule->title : '') }}" required>
-                @if($errors->has('title'))
-                    <p class="help-block">
-                        {{ $errors->first('title') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.schedule.fields.title_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('subtitle') ? 'has-error' : '' }}">
-                <label for="subtitle">{{ trans('cruds.schedule.fields.subtitle') }}</label>
-                <input type="text" id="subtitle" name="subtitle" class="form-control" value="{{ old('subtitle', isset($schedule) ? $schedule->subtitle : '') }}">
-                @if($errors->has('subtitle'))
-                    <p class="help-block">
-                        {{ $errors->first('subtitle') }}
-                    </p>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.schedule.fields.subtitle_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('speaker_id') ? 'has-error' : '' }}">
-                <label for="speaker">{{ trans('cruds.schedule.fields.speaker') }}</label>
-                <select name="speaker_id" id="speaker" class="form-control select2">
-                    @foreach($speakers as $id => $speaker)
-                        <option value="{{ $id }}" {{ (isset($schedule) && $schedule->speaker ? $schedule->speaker->id : old('speaker_id')) == $id ? 'selected' : '' }}>{{ $speaker }}</option>
+            <div class="form-group">
+                <label class="required" for="teacher_id">{{ trans('cruds.schedule.fields.teacher') }}</label>
+                <select class="form-control select2 {{ $errors->has('teacher') ? 'is-invalid' : '' }}" name="teacher_id" id="teacher_id" required>
+                    @foreach($teachers as $id => $teacher)
+                        <option value="{{ $id }}" {{ old('teacher_id') == $id ? 'selected' : '' }}>{{ $teacher }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('speaker_id'))
-                    <p class="help-block">
-                        {{ $errors->first('speaker_id') }}
-                    </p>
+                @if($errors->has('teacher'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('teacher') }}
+                    </div>
                 @endif
+                <span class="help-block">{{ trans('cruds.schedule.fields.teacher_helper') }}</span>
             </div>
-            <div>
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+            <div class="form-group">
+                <label class="required" for="tanggal">{{ trans('cruds.schedule.fields.tanggal') }}</label>
+                <input class="form-control datetime {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" required>
+                @if($errors->has('tanggal'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.schedule.fields.tanggal_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ trans('cruds.schedule.fields.description') }}</label>
+                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
+                @if($errors->has('description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.schedule.fields.description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
             </div>
         </form>
     </div>
 </div>
+
+
+
 @endsection

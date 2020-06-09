@@ -17,7 +17,7 @@ class ScheduleApiController extends Controller
     {
         abort_if(Gate::denies('schedule_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ScheduleResource(Schedule::with(['speaker'])->get());
+        return new ScheduleResource(Schedule::with(['teacher'])->get());
     }
 
     public function store(StoreScheduleRequest $request)
@@ -33,7 +33,7 @@ class ScheduleApiController extends Controller
     {
         abort_if(Gate::denies('schedule_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ScheduleResource($schedule->load(['speaker']));
+        return new ScheduleResource($schedule->load(['teacher']));
     }
 
     public function update(UpdateScheduleRequest $request, Schedule $schedule)

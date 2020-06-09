@@ -4,7 +4,7 @@ namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ScheduleResource extends JsonResource
+class RoomResource extends JsonResource
 {
     public function toArray($request)
     {

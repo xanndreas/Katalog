@@ -1,32 +1,31 @@
-@extends('layouts.admin')
-@section('content')
-@can('schedule_create')
+@can('teacher_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.schedules.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.schedule.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.teachers.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.teacher.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
+
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.schedule.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.teacher.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Schedule">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-roomTeachers">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.schedule.fields.id') }}
+                            {{ trans('cruds.teacher.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.schedule.fields.teacher') }}
+                            {{ trans('cruds.teacher.fields.name') }}
                         </th>
                         <th>
                             {{ trans('cruds.teacher.fields.email') }}
@@ -35,10 +34,10 @@
                             {{ trans('cruds.teacher.fields.whatsapp') }}
                         </th>
                         <th>
-                            {{ trans('cruds.schedule.fields.tanggal') }}
+                            {{ trans('cruds.teacher.fields.alamat') }}
                         </th>
                         <th>
-                            {{ trans('cruds.schedule.fields.description') }}
+                            {{ trans('cruds.teacher.fields.room') }}
                         </th>
                         <th>
                             &nbsp;
@@ -46,44 +45,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($schedules as $key => $schedule)
-                        <tr data-entry-id="{{ $schedule->id }}">
+                    @foreach($teachers as $key => $teacher)
+                        <tr data-entry-id="{{ $teacher->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $schedule->id ?? '' }}
+                                {{ $teacher->id ?? '' }}
                             </td>
                             <td>
-                                {{ $schedule->teacher->name ?? '' }}
+                                {{ $teacher->name ?? '' }}
                             </td>
                             <td>
-                                {{ $schedule->teacher->email ?? '' }}
+                                {{ $teacher->email ?? '' }}
                             </td>
                             <td>
-                                {{ $schedule->teacher->whatsapp ?? '' }}
+                                {{ $teacher->whatsapp ?? '' }}
                             </td>
                             <td>
-                                {{ $schedule->tanggal ?? '' }}
+                                {{ $teacher->alamat ?? '' }}
                             </td>
                             <td>
-                                {{ $schedule->description ?? '' }}
+                                {{ $teacher->room->name ?? '' }}
                             </td>
                             <td>
-                                @can('schedule_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.schedules.show', $schedule->id) }}">
+                                @can('teacher_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.teachers.show', $teacher->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('schedule_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.schedules.edit', $schedule->id) }}">
+                                @can('teacher_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.teachers.edit', $teacher->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('schedule_delete')
-                                    <form action="{{ route('admin.schedules.destroy', $schedule->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('teacher_delete')
+                                    <form action="{{ route('admin.teachers.destroy', $teacher->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -100,19 +99,16 @@
     </div>
 </div>
 
-
-
-@endsection
 @section('scripts')
 @parent
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('schedule_delete')
+@can('teacher_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.schedules.massDestroy') }}",
+    url: "{{ route('admin.teachers.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -143,7 +139,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-Schedule:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-roomTeachers:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

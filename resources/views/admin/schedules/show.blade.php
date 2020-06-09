@@ -7,7 +7,12 @@
     </div>
 
     <div class="card-body">
-        <div class="mb-2">
+        <div class="form-group">
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('admin.schedules.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
+            </div>
             <table class="table table-bordered table-striped">
                 <tbody>
                     <tr>
@@ -20,52 +25,39 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.schedule.fields.day_number') }}
+                            {{ trans('cruds.schedule.fields.teacher') }}
                         </th>
                         <td>
-                            {{ $schedule->day_number }}
+                            {{ $schedule->teacher->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.schedule.fields.start_time') }}
+                            {{ trans('cruds.schedule.fields.tanggal') }}
                         </th>
                         <td>
-                            {{ $schedule->start_time }}
+                            {{ $schedule->tanggal }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.schedule.fields.title') }}
+                            {{ trans('cruds.schedule.fields.description') }}
                         </th>
                         <td>
-                            {{ $schedule->title }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.schedule.fields.subtitle') }}
-                        </th>
-                        <td>
-                            {{ $schedule->subtitle }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.schedule.fields.speaker') }}
-                        </th>
-                        <td>
-                            {{ $schedule->speaker->name ?? '' }}
+                            {{ $schedule->description }}
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
-                {{ trans('global.back_to_list') }}
-            </a>
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('admin.schedules.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
+            </div>
         </div>
-
-
     </div>
 </div>
+
+
+
 @endsection

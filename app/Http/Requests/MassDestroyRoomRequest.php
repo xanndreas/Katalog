@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Schedule;
+use App\Room;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class MassDestroyScheduleRequest extends FormRequest
+class MassDestroyRoomRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('schedule_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('room_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -20,7 +20,7 @@ class MassDestroyScheduleRequest extends FormRequest
     {
         return [
             'ids'   => 'required|array',
-            'ids.*' => 'exists:schedules,id',
+            'ids.*' => 'exists:rooms,id',
         ];
     }
 }
