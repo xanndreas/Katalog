@@ -28,10 +28,10 @@
                         {{ trans('cruds.room.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.room.fields.gedung') }}
+                        {{ trans('cruds.room.fields.description') }}
                     </th>
                     <th>
-                        {{ trans('cruds.room.fields.description') }}
+                        {{ trans('cruds.room.fields.gedung') }}
                     </th>
                     <th>
                         &nbsp;
@@ -91,8 +91,8 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'gedung', name: 'gedung' },
 { data: 'description', name: 'description' },
+{ data: 'gedung_name', name: 'gedung.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

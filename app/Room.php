@@ -21,7 +21,7 @@ class Room extends Model
     protected $fillable = [
         'name',
         'description',
-        'gedung',
+        'gedung_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -30,5 +30,10 @@ class Room extends Model
     public function roomTeachers()
     {
         return $this->hasMany(Teacher::class, 'room_id', 'id');
+    }
+
+    public function gedung()
+    {
+        return $this->belongsTo(Building::class, 'gedung_id');
     }
 }

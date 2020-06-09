@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 917px;">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="#" class="brand-link text-center">
         <span class="brand-text font-weight-light">{{ trans('panel.site_title') }}</span>
     </a>
 
@@ -75,7 +75,9 @@
                                     <i class="fa-fw fas fa-file-alt nav-icon">
 
                                     </i>
-                                    {{ trans('cruds.auditLog.title') }}
+                                    <p>
+                                        <span>{{ trans('cruds.auditLog.title') }}</span>
+                                    </p>
                                 </a>
                             </li>
                             @endcan
@@ -141,6 +143,18 @@
                             </p>
                         </a>
                     </li>
+                @endcan
+                @can('building_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.buildings.index") }}" class="nav-link {{ request()->is('admin/buildings') || request()->is('admin/buildings/*') ? 'active' : '' }}">
+                        <i class="fa-fw far fa-building nav-icon">
+
+                        </i>
+                        <p>
+                            <span>{{ trans('cruds.building.title') }}</span>
+                        </p>
+                    </a>
+                </li>
                 @endcan
                 @can('schedule_access')
                     <li class="nav-item">

@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Room;
+use App\Building;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateRoomRequest extends FormRequest
+class StoreBuildingRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('room_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('building_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -19,13 +19,10 @@ class UpdateRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => [
+            'name'  => [
                 'required',
             ],
-            'description' => [
-                'required',
-            ],
-            'gedung_id'      => [
+            'photo' => [
                 'required',
             ],
         ];

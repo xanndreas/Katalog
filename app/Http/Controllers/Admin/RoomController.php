@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Building;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRoomRequest;
 use App\Http\Requests\StoreRoomRequest;
@@ -19,7 +20,7 @@ class RoomController extends Controller
         abort_if(Gate::denies('room_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Room::query()->select(sprintf('%s.*', (new Room)->table));
+            $query = Room::with(['gedung'])->select(sprintf('%s.*', (new Room)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -49,11 +50,11 @@ class RoomController extends Controller
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : "";
             });
-            $table->editColumn('gedung', function ($row) {
-                return $row->gedung ? $row->gedung : "";
+            $table->addColumn('gedung_name', function ($row) {
+                return $row->gedung ? $row->gedung->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'gedung']);
 
             return $table->make(true);
         }
@@ -65,7 +66,9 @@ class RoomController extends Controller
     {
         abort_if(Gate::denies('room_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.rooms.create');
+        $gedungs = Building::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.rooms.create', compact('gedungs'));
     }
 
     public function store(StoreRoomRequest $request)
@@ -79,7 +82,11 @@ class RoomController extends Controller
     {
         abort_if(Gate::denies('room_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.rooms.edit', compact('room'));
+        $gedungs = Building::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $room->load('gedung');
+
+        return view('admin.rooms.edit', compact('gedungs', 'room'));
     }
 
     public function update(UpdateRoomRequest $request, Room $room)
@@ -93,7 +100,7 @@ class RoomController extends Controller
     {
         abort_if(Gate::denies('room_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $room->load('roomTeachers');
+        $room->load('gedung', 'roomTeachers');
 
         return view('admin.rooms.show', compact('room'));
     }

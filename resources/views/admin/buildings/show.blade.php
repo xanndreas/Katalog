@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.room.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.building.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.rooms.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.buildings.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,40 +17,44 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.room.fields.id') }}
+                            {{ trans('cruds.building.fields.id') }}
                         </th>
                         <td>
-                            {{ $room->id }}
+                            {{ $building->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.room.fields.name') }}
+                            {{ trans('cruds.building.fields.name') }}
                         </th>
                         <td>
-                            {{ $room->name }}
+                            {{ $building->name }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.room.fields.description') }}
+                            {{ trans('cruds.building.fields.description') }}
                         </th>
                         <td>
-                            {{ $room->description }}
+                            {{ $building->description }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.room.fields.gedung') }}
+                            {{ trans('cruds.building.fields.photo') }}
                         </th>
                         <td>
-                            {{ $room->gedung->name ?? '' }}
+                            @if($building->photo)
+                                <a href="{{ $building->photo->getUrl() }}" target="_blank">
+                                    <img src="{{ $building->photo->getUrl('thumb') }}" width="50px" height="50px">
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.rooms.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.buildings.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -64,14 +68,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#room_teachers" role="tab" data-toggle="tab">
-                {{ trans('cruds.teacher.title') }}
+            <a class="nav-link" href="#gedung_rooms" role="tab" data-toggle="tab">
+                {{ trans('cruds.room.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="room_teachers">
-            @includeIf('admin.rooms.relationships.roomTeachers', ['teachers' => $room->roomTeachers])
+        <div class="tab-pane" role="tabpanel" id="gedung_rooms">
+            @includeIf('admin.buildings.relationships.gedungRooms', ['rooms' => $building->gedungRooms])
         </div>
     </div>
 </div>

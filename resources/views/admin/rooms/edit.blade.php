@@ -21,16 +21,6 @@
                 <span class="help-block">{{ trans('cruds.room.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="gedung">{{ trans('cruds.room.fields.gedung') }}</label>
-                <input class="form-control {{ $errors->has('gedung') ? 'is-invalid' : '' }}" type="text" name="gedung" id="gedung" value="{{ old('gedung', $room->gedung) }}" required>
-                @if($errors->has('gedung'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('gedung') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.room.fields.gedung_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label class="required" for="description">{{ trans('cruds.room.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" required>{{ old('description', $room->description) }}</textarea>
                 @if($errors->has('description'))
@@ -39,6 +29,20 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.room.fields.description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="gedung_id">{{ trans('cruds.room.fields.gedung') }}</label>
+                <select class="form-control select2 {{ $errors->has('gedung') ? 'is-invalid' : '' }}" name="gedung_id" id="gedung_id">
+                    @foreach($gedungs as $id => $gedung)
+                        <option value="{{ $id }}" {{ ($room->gedung ? $room->gedung->id : old('gedung_id')) == $id ? 'selected' : '' }}>{{ $gedung }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('gedung'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('gedung') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.room.fields.gedung_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

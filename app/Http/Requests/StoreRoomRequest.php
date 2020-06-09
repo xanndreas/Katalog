@@ -25,7 +25,7 @@ class StoreRoomRequest extends FormRequest
             'description' => [
                 'required',
             ],
-            'gedung'      => [
+            'gedung_id'      => [
                 'required',
             ],
         ];
